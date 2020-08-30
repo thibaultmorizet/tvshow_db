@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="mb-5">Ajouter un personnage</h2>
+
+
+{{ form_start(characterForm) }} 
+    
+    {{ form_widget(characterForm) }}
+
+    <input type="submit" value="Ajouter" class="btn btn-primary">
+{{ form_end(characterForm) }}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2 class="mb-5">Modifier une saison</h2>
+
+
+{{ form_start(seasonForm) }} 
+    
+    {{ form_widget(seasonForm) }}
+
+    <input type="submit" value="Modifier" class="btn btn-primary">
+{{ form_end(seasonForm) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    let episodeFormCount = {{ seasonForm.episodes | length }};
+    let episodeFormPrototype = $('#season_episodes').data('prototype');
+    let addEpisodeButton = $("<button type=\"button\" class=\"btn btn-outline-primary\">Ajouter un épisode</button>")
+
+    function addNewEpisodeForm() {
+        episodeFormCount++;
+        let newEpisodeForm = $(episodeFormPrototype.replace(/__name__/g, episodeFormCount));
+        $('#season_episodes').append(newEpisodeForm);
+    }
+
+    addEpisodeButton.on('click', addNewEpisodeForm);
+    $('#season_episodes').after(addEpisodeButton);
+</script>
+
+{% endblock %}
+

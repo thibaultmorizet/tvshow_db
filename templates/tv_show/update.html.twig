@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between mb-5">
+    <h2>Modifier une série</h2>
+    <div>
+        <a onClick="return confirm('Confirmez la suppression');" href="{{ path('tv_show_delete', {'id': tvShow.id}) }}" class="btn btn-danger">Supprimer</a>
+    </div>
+</div>
+
+{{ form_start(tvShowForm) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(tvShowForm.title) }}
+            {{ form_row(tvShowForm.releaseDate) }}
+            {{ form_row(tvShowForm.directedBy) }}
+            {{ form_row(tvShowForm.categories) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(tvShowForm.synopsis) }}
+        </div>
+    </div>
+    <input type="submit" value="Modifier" class="btn btn-primary">
+{{ form_end(tvShowForm) }} 
+
+{% endblock %}

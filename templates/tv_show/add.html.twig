@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="mb-5">Ajouter une série</h2>
+
+{# 
+{{ form(tvShowForm) }} <form> <input ...> </form>
+#}
+
+{# https://symfony.com/doc/current/form/form_customization.html#form-functions-and-variables-reference #}
+
+
+{{ form_start(tvShowForm) }} {# <form method=""post"> #}
+    
+    {# form_widget(tvShowForm) permet d'afficher tout les champs du formulaire d'un coup #}
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(tvShowForm.title) }}
+            {{ form_row(tvShowForm.releaseDate) }}
+            {{ form_row(tvShowForm.directedBy) }}
+            {{ form_row(tvShowForm.categories) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(tvShowForm.synopsis) }}
+        </div>
+    </div>
+    
+
+    <input type="submit" value="Ajouter" class="btn btn-primary">
+{{ form_end(tvShowForm) }} {# </form> #}
+
+{% endblock %}

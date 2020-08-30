@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2>Ajouter un acteur</h2>
+
+{# 
+{{ form(personForm) }} <form> <input ...> </form>
+#}
+
+{# https://symfony.com/doc/current/form/form_customization.html#form-functions-and-variables-reference #}
+
+
+{{ form_start(personForm) }} {# <form method=""post"> #}
+    
+    {# form_widget(personForm) permet d'afficher tout les champs du formulaire d'un coup #}
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(personForm.firstName) }}
+            {{ form_row(personForm.lastName) }}
+            {{ form_row(personForm.birthDate) }}
+            {{ form_row(personForm.gender) }}            
+        </div>
+    </div>
+    
+
+    <input type="submit" value="Ajouter" class="btn btn-primary">
+{{ form_end(personForm) }} {# </form> #}
+
+{% endblock %}

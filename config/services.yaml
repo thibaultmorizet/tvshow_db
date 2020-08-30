@@ -1,0 +1,56 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    file_directory: '%kernel.project_dir%/public/uploads'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # je précise que pour mon service Uploader
+    App\Service\Uploader:
+        # il y a un argument qui n'a pas de Type donc je suis obligé de dire a Symfony qu'est ce qu'il est censé contenir
+        arguments:
+            # je dit a symfony que dans l'argument qui s'appel $uploadedFileDirectory
+            # il faudra injecter la valeur contenue dans le parametre picture_directory
+            $uploadedFileDirectory: '%file_directory%'
+
+
+    App\EventListener\CustomEventListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
+
+    App\EventListener\IpLoggerEventListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
+    App\EventListener\TvShowUpdateLogger:
+        # Je rajoute un "comportement" particullier sur mon service
+        tags:
+            # je precise qu'il doit etre contacté par le gestionnaire d'evenements de Doctrine
+            # lorsqu'il y a un evnemetn Update sur une entité TvShow on executera la methode onTvShowUpdate de ce service
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\TvShow, method: 'onTvShowUpdate' }

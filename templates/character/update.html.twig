@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between mb-5">
+    <h2>Modifier un personnage</h2>
+    <div>
+        <a href="{{ path('character_delete', {id: character.id}) }}" onClick="return confirm('Confirmez la suppression');" class="btn btn-danger">Supprimer</a>
+    </div>
+</div>
+
+{{ form_start(characterForm) }} 
+    
+    {{ form_widget(characterForm) }}
+
+    <input type="submit" value="Modifier" class="btn btn-primary">
+{{ form_end(characterForm) }}
+
+{% endblock %}

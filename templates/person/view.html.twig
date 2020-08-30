@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between">
+    <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+   <div>
+         <a href="{{ path('person_update', {'id': person.id}) }}" class="btn btn-primary">Modifier</a>
+     </div>
+</div>
+
+{% endblock %}

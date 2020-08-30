@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between mb-5">
+    <h2>Séries</h2>
+    <div>
+        {% if is_granted('ROLE_TVSHOW_ADMIN') %}
+            <a href="{{ path('tv_show_add') }}" class="btn btn-primary">Ajouter</a>
+        {% endif %}
+    </div>
+</div>
+
+<form class="form-inline mb-5">
+  <div class="form-group mr-2">
+    <input type="text" value="{{ app.request.get('search') }}" class="form-control" name="search" placeholder="Rechercher par titre">
+  </div>
+  <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+
+
+<div class="list-group">
+    {% for tvShow in tvShows %}
+        <a href="{{ path('tv_show_view', {'id': tvShow.id}) }}" class="list-group-item list-group-item-action">
+            {{ tvShow.title }}
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

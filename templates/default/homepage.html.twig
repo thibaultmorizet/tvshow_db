@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron">
+  <h1 class="display-4">{{ welcomeMessage }}</h1>
+  <p class="lead">Une base de donnée à moitié complète, pleine d'info non vérifiées 👍</p>
+  <hr class="my-4">
+  <p>{{ joke | raw }}</p>
+  <p>Pour commencer, explorez la liste des catégories de séries en cliquant sur le bouton Explorer.</p>
+  <a class="btn btn-primary btn-lg" href="{{ path('category_list') }}" role="button">Explorer</a>
+</div>
+
+{% endblock %}
